@@ -1,4 +1,3 @@
-source /home/adminad/zhangdw/workspace/uv/transformers/bin/activate
 nohup \
 accelerate launch --main_process_port 0 finetuning.py \
 --model_path "/data/download-model/DeepSeek-R1-0528-Qwen3-8B" \
