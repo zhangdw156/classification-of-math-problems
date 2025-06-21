@@ -5,8 +5,8 @@ accelerate launch --main_process_port 0 finetuning.py \
 --output_dir "finetuned_model" \
 --checkpoint_dir "checkpoints" \
 --checkpoint_interval 50 \
---num_epochs 10 \
---batch_size 8 \
+--num_epochs 50 \
+--batch_size 3 \
 > finetuning.log \
 2>&1 \
 &

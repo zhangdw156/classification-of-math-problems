@@ -3,9 +3,31 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipe
 from peft import PeftModel
 import torch
 import csv
+import argparse
 
-model_path="/data/download-model/DeepSeek-R1-0528-Qwen3-8B"
-lora_path="finetuned_model"
+def parse_args():
+    parser = argparse.ArgumentParser(description="训练模型的命令行参数")
+    
+    # 添加命令行参数
+    parser.add_argument('--model_path', type=str, default="/data/download-model/DeepSeek-R1-0528-Qwen3-8B",
+                        help='模型路径')
+    parser.add_argument('--input_file', type=str, default="data/train.csv",
+                        help='测试集')
+    parser.add_argument('--output_file', type=str, default="submission.csv",
+                        help='输出文件')
+    parser.add_argument('--lora_path', type=str, default="finetuned_model",
+                        help='lora路径')
+    
+    # 解析参数
+    args = parser.parse_args()
+    return args
+
+args=parse_args()
+
+model_path=args.model_path
+lora_path=args.lora_path
+input_file=args.input_file
+output_file=args.output_file
 
 # 加载模型与分词器
 tokenizer = AutoTokenizer.from_pretrained(model_path)
@@ -24,7 +46,7 @@ classifer = pipeline(
 )
 
 sentences=[]
-with open("data/test.csv","r",encoding="utf-8") as f:
+with open(input_file,"r",encoding="utf-8") as f:
     reader=csv.reader(f)
     next(reader)
     for line in reader:
@@ -40,7 +62,7 @@ for idx,output in enumerate(outputs):
     result.append(output['label'].split('_')[-1])
     results.append(result)
 
-with open('submission.csv','w') as f:
+with open(output_file,'w') as f:
     f.write('id,label\n')
     writer=csv.writer(f)
     writer.writerows(results)

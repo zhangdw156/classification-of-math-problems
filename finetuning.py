@@ -392,22 +392,18 @@ if __name__ == "__main__":
     os.makedirs(output_dir,exist_ok=True)
     os.makedirs(checkpoint_dir, exist_ok=True)
     
-    # 打印参数
-    print(f"模型路径: {model_path}")
-    print(f"数据集路径: {dataset_path}")
-    print(f"输出路径: {output_dir}")
-    print(f"训练轮数: {num_epochs}")
-    print(f"批次大小: {batch_size}")
-    print(f"检查点间隔: {checkpoint_interval}")
-    print(f"检查点路径: {checkpoint_interval}")
-    
-   
-    
     # 初始化Accelerator
     accelerator = Accelerator(mixed_precision="bf16")
     device = accelerator.device
     if accelerator.is_main_process:
         print(f"使用设备: {device}")
+        print(f"模型路径: {model_path}")
+        print(f"数据集路径: {dataset_path}")
+        print(f"输出路径: {output_dir}")
+        print(f"训练轮数: {num_epochs}")
+        print(f"批次大小: {batch_size}")
+        print(f"检查点间隔: {checkpoint_interval}")
+        print(f"检查点路径: {checkpoint_dir}")
 
     # 初始化训练指标
     train_metrics = {"loss": [], "accuracy": []}
