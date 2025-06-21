@@ -1,3 +1,5 @@
+source /home/adminad/zhangdw/workspace/uv/transformers/bin/activate
+nohup \
 accelerate launch --main_process_port 0 finetuning.py \
 --model_path "/data/download-model/DeepSeek-R1-0528-Qwen3-8B" \
 --dataset_path "data/train.csv" \
@@ -5,4 +7,8 @@ accelerate launch --main_process_port 0 finetuning.py \
 --checkpoint_dir "checkpoints" \
 --checkpoint_interval 50 \
 --num_epochs 10 \
---batch_size 8
+--batch_size 8 \
+> finetuning.log \
+2>&1 \
+&
+disown
