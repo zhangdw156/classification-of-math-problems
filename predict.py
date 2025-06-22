@@ -11,7 +11,7 @@ def parse_args():
     # 添加命令行参数
     parser.add_argument('--model_path', type=str, default="/data/download-model/DeepSeek-R1-0528-Qwen3-8B",
                         help='模型路径')
-    parser.add_argument('--input_file', type=str, default="data/train.csv",
+    parser.add_argument('--input_file', type=str, default="data/test.csv",
                         help='测试集')
     parser.add_argument('--output_file', type=str, default="submission.csv",
                         help='输出文件')
